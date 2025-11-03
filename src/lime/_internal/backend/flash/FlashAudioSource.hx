@@ -12,7 +12,7 @@ class FlashAudioSource
 	private var length:Null<Float>;
 	private var loops:Int;
 	private var parent:AudioSource;
-	private var pauseTime:Int;
+	private var pauseTime:Float;
 	private var playing:Bool;
 	private var position:Vector4;
 
@@ -37,7 +37,7 @@ class FlashAudioSource
 	{
 		if (channel != null)
 		{
-			pauseTime = Std.int(channel.position * 1000);
+			pauseTime = channel.position * 1000;
 			channel.stop();
 		}
 	}
@@ -53,11 +53,11 @@ class FlashAudioSource
 	}
 
 	// Get & Set Methods
-	public function getCurrentTime():Int
+	public function getCurrentTime():Float
 	{
 		if (channel != null)
 		{
-			return Std.int(channel.position) - parent.offset;
+			return channel.position - parent.offset;
 		}
 		else
 		{
@@ -65,7 +65,7 @@ class FlashAudioSource
 		}
 	}
 
-	public function setCurrentTime(value:Int):Int
+	public function setCurrentTime(value:Float):Float
 	{
 		pauseTime = value;
 
