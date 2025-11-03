@@ -9,7 +9,7 @@ class HTML5AudioSource
 	private var completed:Bool;
 	private var gain:Float;
 	private var id:Int;
-	private var length:Int;
+	private var length:Float;
 	private var loops:Int;
 	private var parent:AudioSource;
 	private var playing:Bool;
@@ -188,7 +188,7 @@ class HTML5AudioSource
 		return gain = value;
 	}
 
-	public function getLength():Int
+	public function getLength():Float
 	{
 		if (length != 0)
 		{
@@ -198,14 +198,14 @@ class HTML5AudioSource
 		#if lime_howlerjs
 		if (parent.buffer != null && parent.buffer.__srcHowl != null)
 		{
-			return Std.int(parent.buffer.__srcHowl.duration() * 1000);
+			return parent.buffer.__srcHowl.duration() * 1000;
 		}
 		#end
 
 		return 0;
 	}
 
-	public function setLength(value:Int):Int
+	public function setLength(value:Float):Float
 	{
 		return length = value;
 	}

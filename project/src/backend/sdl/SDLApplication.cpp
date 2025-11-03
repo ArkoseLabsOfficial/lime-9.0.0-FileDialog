@@ -20,6 +20,9 @@ namespace lime {
 	AutoGCRoot* Application::callback = 0;
 	SDLApplication* SDLApplication::currentApplication = 0;
 
+	static const double POSITIVE_NORMALIZE = 1.0 / 32767.0;
+	static const double NEGATIVE_NORMALIZE = 1.0 / 32768.0;
+
 	const int analogAxisDeadZone = 1000;
 	std::map<int, std::map<int, int> > gamepadsAxisMap;
 	bool inBackground = false;
@@ -170,10 +173,12 @@ namespace lime {
 		return (counter / performanceFrequency) * 1000.0;
 
 	}
-	void busyWait(double ms) {
-		const double start = getTime();
-		while (getTime() - start < ms) {
-			std::this_thread::yield();
+	void preciseSleep(double ms) {
+		auto start = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration<double, std::milli>(ms);
+		
+		while (std::chrono::high_resolution_clock::now() - start < duration) {
+			std::this_thread::sleep_for(std::chrono::microseconds(100));
 		}
 	}
 
@@ -189,7 +194,7 @@ namespace lime {
 
 		double remainder = (end - start) - dt;
 		if (remainder > 0)
-			busyWait(remainder);
+			preciseSleep(remainder);
 	}
 
 	void SDLApplication::HandleEvent (SDL_Event* event) {
@@ -475,7 +480,7 @@ namespace lime {
 					}
 
 					gamepadsAxisMap[event->caxis.which][event->caxis.axis] = event->caxis.value;
-					gamepadEvent.axisValue = event->caxis.value / (event->caxis.value > 0 ? 32767.0 : 32768.0);
+					gamepadEvent.axisValue = event->caxis.value * (event->caxis.value > 0 ? POSITIVE_NORMALIZE : NEGATIVE_NORMALIZE);
 
 					GamepadEvent::Dispatch (&gamepadEvent);
 					break;
