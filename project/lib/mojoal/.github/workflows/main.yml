@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         platform:  # !!! FIXME: figure out an efficient way to get SDL2 on the Windows/Mac bots.
-        - { name: Linux,   os: ubuntu-20.04, flags: -GNinja }
+        - { name: Linux,   os: ubuntu-24.04, flags: -GNinja }
         #- { name: Windows, os: windows-latest }
         #- { name: MacOS,   os: macos-latest }
     steps:
