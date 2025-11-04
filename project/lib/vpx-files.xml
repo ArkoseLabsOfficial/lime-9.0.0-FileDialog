@@ -1,6 +1,6 @@
 <xml>
 
-	<!-- <set name="HXCPP_CPP11" value="1" /> -->
+	<!-- <set name="HXCPP_CPP20" value="1" /> -->
 
 	<files id="native-toolkit-vpx">
 

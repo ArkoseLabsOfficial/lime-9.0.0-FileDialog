@@ -1,7 +1,7 @@
 <xml>
 
 	<set name="PLATFORM" value="android-21" if="android" />
-	<set name="HXCPP_CPP11" value="1" />
+	<set name="HXCPP_CPP20" value="1" />
 
 	<include name="${HXCPP}/build-tool/BuildCommon.xml" />
 
@@ -53,7 +53,7 @@
 
 	<files id="lime">
 
-		<!-- setting HXCPP_CPP11 doesn't seem to apply to .mm files -->
+		<!-- setting HXCPP_CPP20 doesn't seem to apply to .mm files -->
         <compilerflag value="-std=c++11" unless="isMsvc" />
 		<compilerflag value="-Iinclude" />
 
@@ -430,6 +430,7 @@
 				<lib name="shell32.lib" />
 				<lib name="comdlg32.lib" />
 				<lib name="setupapi.lib" />
+				<lib name="avrt.lib" if="LIME_OPENALSOFT"/>
 
 				<lib name="usp10.lib" if="LIME_HARFBUZZ" />
 				<lib name="rpcrt4.lib" if="LIME_HARFBUZZ" />
