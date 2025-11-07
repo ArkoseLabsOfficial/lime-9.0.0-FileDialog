@@ -8,12 +8,12 @@
 	<set name="tvos" value="1" if="appletv" />
 
 	<set name="LIME_CAIRO" value="1" />
-	<set name="LIME_CURL" value="1" unless="winrt" />
-	<set name="LIME_EFSW" value="1" if="windows || mac || linux" unless="winrt" />
+	<set name="LIME_CURL" value="1" />
+	<set name="LIME_EFSW" value="1" if="windows || mac || linux" />
 	<set name="LIME_JPEG" value="1" />
 	<!-- <set name="LIME_FAUDIO" value="1" /> -->
 	<set name="LIME_FREETYPE" value="1" />
-	<set name="LIME_HARFBUZZ" value="1" unless="winrt" />
+	<set name="LIME_HARFBUZZ" value="1" />
 	<!-- <set name="LIME_HASHLINK" value="1" if="windows || mac || linux" /> -->
 	<set name="LIME_HASHLINK" value="1" if="hashlink" />
 	<set name="LIME_LZMA" value="1" />
@@ -62,7 +62,7 @@
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/cairo/configs/default/" unless="windows || mac || linux" />
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/cairo/configs/linux/" if="linux" />
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/cairo/configs/windows/" if="windows" />
-			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/cairo/configs/mac/" if="mac" />
+			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/cairo/configs/mac/" if="mac" unless="windows"/>
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/cairo/src/" />
 			<compilerflag value="-DLIME_CAIRO" />
 			<compilerflag value="-DHAVE_CONFIG_H" />
@@ -226,8 +226,8 @@
 				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/" />
 				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/default/" unless="windows || mac || linux || rpi" />
 				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/linux/" if="linux" unless="rpi" />
-				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/windows/" if="windows" unless="winrt" />
-				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/mac/" if="mac" />
+				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/windows/" if="windows" />
+				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/mac/" if="mac" unless="windows"/>
 				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/rpi/" if="rpi" />
 				<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/configs/winrt/" if="winrt" />
 
@@ -311,12 +311,12 @@
 		<file name="src/system/CFFI.cpp" />
 		<file name="src/system/CFFIPointer.cpp" />
 		<file name="src/system/ClipboardEvent.cpp" />
-		<file name="src/system/Display.mm" if="mac || ios" />
+		<file name="src/system/Display.mm" if="mac || ios" unless="windows"/>
 		<file name="src/system/Display.cpp" unless="mac || ios" />
 		<file name="src/system/DisplayMode.cpp" />
 		<file name="src/system/JNI.cpp" if="android" />
 		<file name="src/system/Locale.cpp" unless="mac || ios" />
-		<file name="src/system/Locale.mm" if="mac || ios" />
+		<file name="src/system/Locale.mm" if="mac || ios" unless="windows"/>
 		<file name="src/system/OrientationEvent.cpp" />
 		<file name="src/system/SensorEvent.cpp" />
 		<file name="src/system/System.cpp" unless="ios" />
@@ -433,7 +433,7 @@
 				<lib name="rpcrt4.lib" if="LIME_HARFBUZZ" />
 				<lib name="dwrite.lib" if="LIME_HARFBUZZ" />
 
-				<lib name="comsuppw.lib" unless="winrt" />
+				<lib name="comsuppw.lib" />
 
 				<lib name="D3D11.lib" if="winrt" />
 				<lib name="RuntimeObject.lib" if="winrt" />

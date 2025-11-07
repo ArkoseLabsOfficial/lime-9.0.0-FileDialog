@@ -1144,8 +1144,9 @@ namespace lime {
 	}
 
 
-	#ifdef HX_WINDOWS
     bool IsSystemDarkTheme() {
+
+		#ifdef HX_WINDOWS
         HKEY hKey;
         DWORD value = 0;
         DWORD size = sizeof(DWORD);
@@ -1168,13 +1169,15 @@ namespace lime {
         if (SystemParametersInfo(SPI_GETHIGHCONTRAST, sizeof(HIGHCONTRAST), &hc, 0)) {
             return (hc.dwFlags & HCF_HIGHCONTRASTON) != 0;
         }
+		#endif
 
-        return false;  // light mode is default
+        return false;  // light mode is default or for non-windows platforms
+
     }
-    #endif
 
+	#ifdef HX_WINDOWS
     void SDLWindow::SetDarkMode(bool enable) {
-        #ifdef HX_WINDOWS
+
         int darkMode = enable ? 1 : 0;
 
         SDL_SysWMinfo wminfo;
@@ -1189,15 +1192,18 @@ namespace lime {
 
             UpdateWindow(hwnd);
         }
-        #endif
-    }
 
+    }
+	#endif
+
+	#ifdef HX_WINDOWS
     void SDLWindow::SetSystemTheme() {
-        #ifdef HX_WINDOWS
+
         bool isDarkTheme = IsSystemDarkTheme();
         SetDarkMode(isDarkTheme);
-        #endif
+
     }
+	#endif
 
 
 	Window* CreateWindow (Application* application, int width, int height, int flags, const char* title) {
