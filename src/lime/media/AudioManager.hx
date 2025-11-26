@@ -198,7 +198,7 @@ class AudioManager
 			"output-limiter=false",
 			"volume-adjust=0",
 			"period_size=256",
-			
+
 			"[decoder]",
 			"hq-mode=true",
 			"distance-comp=false",
