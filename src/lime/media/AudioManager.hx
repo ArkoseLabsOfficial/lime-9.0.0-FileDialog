@@ -183,29 +183,31 @@ class AudioManager
 	private static function __setupConfig():Void
 	{
 		#if (lime_openal && (windows || mac || linux || android))
-		final alConfig:Array<String> = [];
-
-		alConfig.push('[general]');
-		alConfig.push('channels=stereo');
-		alConfig.push('sample-type=float32');
-		alConfig.push('stereo-mode=speakers');
-		alConfig.push('stereo-encoding=panpot');
-		alConfig.push('hrtf=false');
-		alConfig.push('cf_level=3');
-		alConfig.push('resampler=fast_bsinc24');
-		alConfig.push('front-stablizer=false');
-		alConfig.push('output-limiter=false');
-		alConfig.push('volume-adjust=0');
-		alConfig.push('period_size=441');
-
-		alConfig.push('[decoder]');
-		alConfig.push('hq-mode=true');
-		alConfig.push('distance-comp=false');
-		alConfig.push('nfc=false');
+		final alConfig:Array<String> = [
+			"[general]",
+			"channels=stereo",
+			"sample-type=float32",
+			"stereo-mode=speakers",
+			"stereo-encoding=panpot",
+			"hrtf=false",
+			"periods=4",
+			"cf_level=1",
+			"dither=true",
+			"resampler=fast_bsinc24",
+			"front-stablizer=false",
+			"output-limiter=false",
+			"volume-adjust=0",
+			"period_size=256",
+			
+			"[decoder]",
+			"hq-mode=true",
+			"distance-comp=false",
+			"nfc=false"
+		];
 
 		try
 		{
-			final directory:String = Path.directory(Path.withoutExtension(System.applicationStorageDirectory));
+			final directory:String = Path.join([System.applicationDirectory, "plugins"]);
 			final path:String = Path.join([directory, #if windows 'audio-config.ini' #else 'audio-config.conf' #end]);
 			final content:String = alConfig.join('\n');
 
@@ -213,7 +215,7 @@ class AudioManager
 
 			if (!FileSystem.exists(path)) File.saveContent(path, content);
 
-			Sys.putEnv('ALSOFT_CONF', path);
+			Sys.putEnv("ALSOFT_CONF", path);
 		}
 		catch (e:Dynamic) {}
 		#end
