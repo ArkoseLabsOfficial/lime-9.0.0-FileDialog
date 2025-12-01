@@ -192,7 +192,7 @@ class AudioManager
 			"hrtf=false",
 			"periods=4",
 			"cf_level=1",
-			"dither=true",
+			"dither=false",
 			"resampler=fast_bsinc24",
 			"front-stablizer=false",
 			"output-limiter=false",
