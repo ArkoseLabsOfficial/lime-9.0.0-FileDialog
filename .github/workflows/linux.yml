@@ -34,7 +34,8 @@ jobs:
             libpng-dev \
             libturbojpeg-dev \
             libuv1-dev \
-            libvorbis-dev
+            libvorbis-dev \
+            libdbus-1-dev
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
