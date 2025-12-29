@@ -55,15 +55,4 @@ jobs:
             ndll/Android/
             !**/.gitignore
             lime.png
-          if-no-files-found: error          haxelib run lime rebuild android -release -nocolor -nocffi -ONLY_ARM64
-          haxelib run lime rebuild android -release -nocolor -nocffi -ONLY_X86
-          haxelib run lime rebuild android -release -nocolor -nocffi -ONLY_X86_64
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Android-NDLL
-          path: |
-            ndll/Android/
-            !**/.gitignore
-            lime.png
           if-no-files-found: error
