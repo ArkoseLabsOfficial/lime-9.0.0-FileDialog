@@ -25,7 +25,6 @@
 	</files>
 
 	<files id="libhl">
-		<compilerflag value="-std=c11" unless="windows" />
 		<compilerflag value="-DLIBHL_EXPORTS" />
 		<compilerflag value="-DHAVE_CONFIG_H" />
 		<compilerflag value="-DPCRE2_CODE_UNIT_WIDTH=16" />
@@ -105,7 +104,7 @@
 		<compilerflag value="-DMBEDTLS_THREADING_C"/>
 		<compilerflag value="-DMBEDTLS_THREADING_PTHREAD" unless="windows"/>
 		<compilerflag value="-DMBEDTLS_THREADING_ALT" if="windows"/>
-		<compilerflag value="/std:c++20" if="windows"/>
+		<compilerflag value="/std:c++20" if="windows" unless="winrt"/>
 		<file name="${HASHLINK_PATH}/libs/ssl/ssl.c" />
 	</files>
 
