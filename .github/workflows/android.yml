@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/FunkinCrew/hxcpp --quiet
+          haxelib install hxcpp --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -41,7 +41,6 @@ jobs:
 
       - name: Rebuild Lime
         run: |
-          haxelib run lime rebuild hxcpp
           haxelib run lime rebuild android -release -nocolor -nocffi -ONLY_ARMV7
           haxelib run lime rebuild android -release -nocolor -nocffi -ONLY_ARM64
           haxelib run lime rebuild android -release -nocolor -nocffi -ONLY_X86
