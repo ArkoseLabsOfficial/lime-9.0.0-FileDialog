@@ -110,7 +110,8 @@ jobs:
             libpng-dev \
             libturbojpeg-dev \
             libuv1-dev \
-            libvorbis-dev
+            libvorbis-dev \
+            libdbus-1-dev
 
       - name: Install Haxe dependencies
         run: |
