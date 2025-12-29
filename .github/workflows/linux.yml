@@ -35,7 +35,8 @@ jobs:
             libturbojpeg-dev \
             libuv1-dev \
             libvorbis-dev \
-            libdbus-1-dev
+            libdbus-1-dev \
+            libudev-dev
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
@@ -111,7 +112,8 @@ jobs:
             libturbojpeg-dev \
             libuv1-dev \
             libvorbis-dev \
-            libdbus-1-dev
+            libdbus-1-dev \
+            libudev-dev
 
       - name: Install Haxe dependencies
         run: |
