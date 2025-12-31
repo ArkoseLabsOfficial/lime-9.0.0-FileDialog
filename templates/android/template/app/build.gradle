@@ -77,6 +77,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     ::if (ANDROID_LIBRARY_PROJECTS)::::foreach (ANDROID_LIBRARY_PROJECTS)::implementation project(':deps:::name::')
     ::end::::end::
+
+    implementation 'com.google.android.material:material:1.11.0'
 }
 
 def getPassword(message) {
