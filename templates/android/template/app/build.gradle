@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    namespace "::META_PACKAGE_NAME::"
+
     ::if (ANDROID_GRADLE_PLUGIN>="4.0")::ndkPath '::ANDROID_NDK_ROOT_ESCAPED::'::end::
 
     defaultConfig {
