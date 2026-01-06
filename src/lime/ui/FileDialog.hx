@@ -245,14 +245,12 @@ class FileDialog #if android implements JNISafety #end
 				return true;
 
 			case OPEN_DIRECTORY:
-				// JNI.callMember(JNI.createMemberMethod('org/haxe/lime/FileDialog', 'openDocumentTree', '(Ljava/lang/String;)V'), JNI_FILE_DIALOG, [null]);
-				onCancel.dispatch();
-				return false;
+				JNI.callMember(JNI.createMemberMethod('org/haxe/lime/FileDialog', 'openDocumentTree', '(Ljava/lang/String;)V'), JNI_FILE_DIALOG, [null]);
+				return true;
 
 			case SAVE:
-				// save(null, filter, defaultPath, title, 'application/octet-stream');
-				onCancel.dispatch();
-				return false;
+				save(null, filter, defaultPath, title, 'application/octet-stream');
+				return true;
 		}
 		return true;
 		#elseif ios
