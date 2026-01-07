@@ -7,6 +7,9 @@ import android.media.AudioManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+::if (ANDROID_USE_ANDROIDX)::
+import androidx.core.content.FileProvider;
+::end::
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -523,6 +526,62 @@ public class GameActivity extends SDLActivity {
 
 	}
 	::end::
+
+
+	public static void openFile(String path) {
+    	try {
+        	String extension = path;
+        	int index = path.lastIndexOf('.');
+
+        	if (index > 0) {
+         	   extension = path.substring(index + 1);
+        	}
+
+        	String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        	File file = new File(path);
+
+			Uri uri;
+			::if (ANDROID_USE_ANDROIDX)::
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // Android 7.0+
+    			uri = FileProvider.getUriForFile(Extension.mainActivity, Extension.mainActivity.getPackageName() + ".fileprovider", file);
+			} else { // Android 5.0 - 6.0
+    			uri = Uri.fromFile(file);
+			}
+			::else::
+			uri = Uri.fromFile(file);
+			::end::
+
+        	Intent intent = new Intent();
+        	intent.setAction(Intent.ACTION_VIEW);
+        	intent.setDataAndType(uri, mimeType);
+			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        	//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        	Extension.mainActivity.startActivity(intent);
+
+    	} catch (Exception e) {
+			Log.e("GameActivity", e.toString());
+    	}
+	}
+
+
+	public static void openURL (String url, String target) {
+
+		Intent browserIntent = new Intent (Intent.ACTION_VIEW).setData (Uri.parse (url));
+
+		try {
+
+			Extension.mainActivity.startActivity (browserIntent);
+
+		} catch (Exception e) {
+
+			Log.e ("GameActivity", e.toString ());
+			return;
+
+		}
+
+	}
+
 
 	public static void postUICallback (final long handle) {
 
